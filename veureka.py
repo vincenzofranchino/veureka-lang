@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """
-Veureka - Un linguaggio di programmazione moderno, semplice ma potente
-Caratteristiche: tipizzazione dinamica, funzioni first-class, closures, OOP
+Veureka - Un linguaggio di programmazione moderno, semplice ma potente.
 
 Uso:
     python veureka.py script.ver          # Esegue un file
