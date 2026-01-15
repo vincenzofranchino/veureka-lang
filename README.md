@@ -15,7 +15,6 @@ Veureka è un linguaggio interpretato con sintassi pulita che supporta programma
 - 🔄 **Closures** e funzioni di ordine superiore
 - ⚡ **Operatori compatti** (+=, -=, ++, --)
 - 📦 **Collezioni native** (liste, mappe/dizionari)
-- 💻 **REPL interattivo** per sperimentare
 - 🐍 **Implementato in Python puro** (nessuna dipendenza esterna)
 
 ## 📥 Installazione
