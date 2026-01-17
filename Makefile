@@ -1,5 +1,6 @@
 .PHONY: all compile
-
+APP_NAME = veureka
+SRC = veureka.py
 all:
 	@echo "For the compilation of veureka use the command: 'make compile'"
 	@echo "=============================================================="
@@ -13,6 +14,13 @@ all:
 	@echo ""
 	@echo "Per eseguire un file .ver: python compilatorecompleto.py tuofile.ver but if the file is compiled use: ./compilatorecompleto tuofile.ver(Linux)"
 
-compile:
-	pyinstaller --onefile veureka.py
+build:
+	pyinstaller --onefile --name $(APP_NAME) $(SRC)
+
+# Installa il binario generato nel sistema
+install: build
+	install -m 755 dist/$(APP_NAME) /usr/local/bin/
+
+clean:
+	rm -rf build dist $(APP_NAME).spec
 	
