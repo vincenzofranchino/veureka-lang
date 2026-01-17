@@ -32,7 +32,7 @@ make install
 # dopo aver eseguito questi due comandi, potrai avviare in qualsiasi momento dal terminale il compilatore 
 # per avviare in qualsiasi momento il compilaore digita il seguente comando
 veureka
-# se vuoi disinistallare l'applicaione, bisogna rientrare nella cartella veureka-lang e digitare questo comando
+# se volessi disinstallare il compilatore, bisogna rientrare nella cartella veureka-lang e digitare questo comando
 make clean
 ```
 
