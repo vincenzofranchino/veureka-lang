@@ -25,7 +25,15 @@ Veureka è un linguaggio interpretato con sintassi pulita che supporta programma
 git clone https://github.com/vincenzofranchino/veureka-lang.git
 cd veureka-lang
 
-# Nessuna installazione richiesta! Python 3.7+ è sufficiente
+# se vuoi usare il file python basta utilizzare il compilatore come un normale file python
+# se vuoi installare il compilatore nel tuo computer (linux)
+make build
+make install
+# dopo aver eseguito questi due comandi, potrai avviare in qualsiasi momento dal terminale il compilatore 
+# per avviare in qualsiasi momento il compilaore digita il seguente comando
+veureka
+# se vuoi disinistallare l'applicaione, bisogna rientrare nella cartella veureka-lang e digitare questo comando
+make clean
 ```
 
 ## 🚀 Quick Start
