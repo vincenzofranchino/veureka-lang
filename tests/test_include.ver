@@ -1,5 +1,5 @@
 # Test semplice di include
-include "lib/math_utils"
+include "lib/math"
 
 print("Quadrato di 7:", quadrato(7))
 print("Cubo di 2:", cubo(2))

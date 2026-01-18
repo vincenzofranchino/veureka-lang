@@ -1,8 +1,8 @@
 # Esempio di utilizzo di INPUT e INCLUDE in Veureka
 
 # Importa librerie
-include "lib/math_utils"
-include "lib/string_utils"
+include "lib/math"
+include "lib/string"
 
 # Test funzioni da librerie
 print("=== Test Librerie Matematiche ===")
