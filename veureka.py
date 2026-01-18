@@ -1280,7 +1280,7 @@ def repl():
 Comandi disponibili:
   exit, quit    - Esci dal REPL
   help          - Mostra questo messaggio
-  clear         - Pulisci le variabili
+  clear         - Pulisci le variabili e il resto del codice
   vars          - Mostra tutte le variabili
 
 Esempi:
@@ -1299,7 +1299,7 @@ Esempi:
             
             if line.strip() == 'clear':
                 interpreter.locals_stack = [{}]
-                print("✓ Variabili pulite")
+                print("✓ Codice e variabili pulite.")
                 continue
             
             if line.strip() == 'vars':
