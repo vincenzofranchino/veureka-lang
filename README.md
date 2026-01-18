@@ -50,16 +50,22 @@ print("Ciao, mondo!")
 ### Eseguire un file
 ```bash
 python veureka.py hello.ver
+# oppure
+veureka hello.var
 ```
 
 ### REPL Interattivo
 ```bash
 python veureka.py
+#oppure
+veureka
 ```
 
 ### Esempi dimostrativi
 ```bash
 python veureka.py --examples
+#oppure
+veureka --examples
 ```
 
 ## 📖 Sintassi di Base
