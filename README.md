@@ -48,15 +48,10 @@ make install
 
 # Adesso puoi usare da qualsiasi directory:
 veureka script.ver
-veureka -c script.ver -o app
 
 # Per disinstallare:
 make clean
 ```
-
-### Dipendenze
-- Python 3.7+
-- Per la compilazione a binari: `gcc` (di solito preinstallato su Linux)
 
 ## 🚀 Quick Start
 
@@ -70,15 +65,6 @@ print("Ciao, mondo!")
 python veurekabeta.py hello.ver
 # oppure (se installato)
 veureka hello.ver
-```
-
-### Compilare a Binario ELF
-```bash
-# Compila a eseguibile
-python veurekabeta.py -c script.ver -o app
-
-# Esegui il binario
-./app
 ```
 
 ### REPL Interattivo
@@ -438,57 +424,6 @@ Arrivederci!
 - `clear` - Pulisci le variabili
 - `vars` - Mostra tutte le variabili definite
 
-## 🔨 Compilazione a Binari ELF
-
-Veureka include un compilatore integrato che genera **veri binari ELF** da codice Veureka. Il binario risultante è standalone e non richiede Python installato sulla macchina di destinazione.
-
-### Compilare un Programma
-
-```bash
-# Compila script.ver a binario eseguibile
-python veurekabeta.py -c script.ver -o app
-
-# Esegui il binario
-./app
-```
-
-### Verificare il Binario
-
-```bash
-# Mostra il tipo di file
-file ./app
-# Output: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, ...
-
-# Verificare le dimensioni
-ls -lh ./app
-```
-
-### Esempio Completo
-
-```bash
-# 1. Crea il programma
-cat > hello.ver << 'EOF'
-print("Ciao dal binario compilato!")
-let numeri = [1, 2, 3, 4, 5]
-for n in numeri
-    print(n * 2)
-end
-EOF
-
-# 2. Compila
-python veurekabeta.py -c hello.ver -o hello_app
-
-# 3. Esegui
-./hello_app
-```
-
-### Vantaggi della Compilazione
-
-- ✅ **Binario standalone** - Non richiede Python o dipendenze esterne
-- ✅ **Esecuzione veloce** - Codice compilato a machine code tramite Nuitka
-- ✅ **Distribuzione facile** - Un singolo file executable
-- ✅ **Protezione del codice sorgente** - Il sorgente Veureka è compilato nel binario
-
 ### TodoList con Classe
 ```veureka
 class TodoList
@@ -547,7 +482,7 @@ print(p.distanza())  # 7.07...
 
 - [x] ✅ Input da terminale
 - [x] ✅ Sistema di librerie (include)
-- [x] ✅ **Compilazione a binari ELF standalone**
+- [ ] Compilazione a binari ELF standalone
 - [ ] Gestione eccezioni (try/catch/finally)
 - [ ] Ereditarietà tra classi
 - [ ] Decoratori
@@ -577,5 +512,3 @@ Questo progetto è distribuito sotto licenza MIT. Vedi il file `LICENSE` per mag
 **Vincenzo Franchino**
 
 - GitHub: [@vincenzofranchino](https://github.com/vincenzofranchino)
-
-
