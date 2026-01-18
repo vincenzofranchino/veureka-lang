@@ -1882,7 +1882,6 @@ Uso:
     python veureka.py script.ver        # Esegue un file
     python veureka.py --examples         # Esegue gli esempi
     python veureka.py --help             # Mostra questo messaggio
-    python veureka.py --debug script.ver # Esegue con debug
 Esempi di sintassi Veureka:
 
     # Variabili
