@@ -2,7 +2,6 @@
 
 **Un linguaggio di programmazione moderno, semplice ma potente**
 
-<img width="200" height="200" alt="logo" src="https://github.com/user-attachments/assets/cef0f1c4-dc8d-416c-aaa4-2b4c9289173e" />
 
 E è un linguaggio interpretato con sintassi pulita che supporta programmazione funzionale, orientata agli oggetti, closures e lambda functions.
 
