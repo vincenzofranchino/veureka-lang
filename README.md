@@ -20,7 +20,6 @@ Veureka è un linguaggio interpretato con sintassi pulita che supporta programma
 - 📦 **Collezioni native** (liste, mappe/dizionari)
 - 💬 **Input/Output interattivo** (input da terminale, print con più argomenti)
 - 📚 **Sistema di librerie** (include per importare file .ver)
-- 🔨 **Compilatore integrato** - Genera binari ELF standalone
 - 🐍 **Implementato in Python puro** (nessuna dipendenza esterna)
 
 ## 📥 Installazione
@@ -33,9 +32,6 @@ cd veureka-lang
 
 # Esegui direttamente
 python veurekabeta.py script.ver
-
-# Compila a binario
-python veurekabeta.py -c script.ver -o app
 ```
 
 ### Opzione 2: Installa come comando di sistema (Linux)
@@ -43,8 +39,8 @@ python veurekabeta.py -c script.ver -o app
 git clone https://github.com/vincenzofranchino/veureka-lang.git
 cd veureka-lang
 
-make build
-make install
+sudo make build
+sudo make install
 
 # Adesso puoi usare da qualsiasi directory:
 veureka script.ver
