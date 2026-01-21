@@ -1,0 +1,4 @@
+include "lib/math"
+
+print(ln(2))
+print(sqrt(100))

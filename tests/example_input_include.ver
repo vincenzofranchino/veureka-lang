@@ -9,6 +9,7 @@ print("=== Test Librerie Matematiche ===")
 print("Quadrato di 5:", quadrato(5))
 print("Cubo di 3:", cubo(3))
 print("Ipotenusa(3,4):", ipotenusa(3, 4))
+print("Radice di 4:", sqrt(4))
 print()
 
 # Test funzione input

@@ -1,0 +1,61 @@
+include "lib/math"
+
+print("========================================")
+print("Test funzioni trigonometriche (sin, cos)")
+print("========================================")
+
+print("\n--- Test sin() ---")
+print("sin(0) =", sin(0))
+print("sin(30) =", sin(30))
+print("sin(45) =", sin(45))
+
+print("\n--- Test cos() ---")
+print("cos(0) =", cos(0))
+print("cos(30) =", cos(30))
+print("cos(45) =", cos(45))
+
+print("\n========================================")
+print("Test operatori logici (&&, ||)")
+print("========================================")
+
+let a = true
+let b = false
+let x = 10
+let y = 0
+
+print("\n--- Test con booleani ---")
+print("a = true, b = false")
+print("a && b =", a && b)
+print("a || b =", a || b)
+print("!a && b =", !a && b)
+print("!b || a =", !b || a)
+
+print("\n--- Test con numeri (truthy/falsy) ---")
+print("x = 10 (truthy), y = 0 (falsy)")
+print("x && y =", x && y)
+print("x || y =", x || y)
+print("y && x =", y && x)
+print("y || x =", y || x)
+
+print("\n========================================")
+print("Test in condizioni if/while")
+print("========================================")
+
+print("\n--- if con && ---")
+if a && x > 5
+    print("Condizione (a && x > 5) è vera")
+end
+
+if b && x > 5
+    print("Questa non dovrebbe apparire")
+end
+
+print("\n--- if con || ---")
+if b || x > 5
+    print("Condizione (b || x > 5) è vera")
+end
+
+if b || y > 5
+    print("Questa non dovrebbe apparire")
+end
+

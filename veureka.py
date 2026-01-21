@@ -57,6 +57,10 @@ class TT(Enum):
     LSHIFT = auto()
     RSHIFT = auto()
     
+    # Logical operators
+    LOGICAL_AND = auto()
+    LOGICAL_OR = auto()
+    
     # Literals
     NUMBER = auto()
     STRING = auto()
@@ -205,6 +209,8 @@ class Lexer:
                 if self.peek() == '=':
                     self.advance()
                     tokens.append(self.make_token(TT.NE, '!='))
+                else:
+                    tokens.append(self.make_token(TT.NOT, '!'))
             elif char == '<':
                 if self.peek() == '=':
                     self.advance()
@@ -238,9 +244,17 @@ class Lexer:
                 tokens.append(self.make_token(TT.DOT, '.'))
             # Bitwise operators
             elif char == '&':
-                tokens.append(self.make_token(TT.AMPERSAND, '&'))
+                if self.peek() == '&':
+                    self.advance()
+                    tokens.append(self.make_token(TT.LOGICAL_AND, '&&'))
+                else:
+                    tokens.append(self.make_token(TT.AMPERSAND, '&'))
             elif char == '|':
-                tokens.append(self.make_token(TT.PIPE, '|'))
+                if self.peek() == '|':
+                    self.advance()
+                    tokens.append(self.make_token(TT.LOGICAL_OR, '||'))
+                else:
+                    tokens.append(self.make_token(TT.PIPE, '|'))
             elif char == '^':
                 tokens.append(self.make_token(TT.CARET, '^'))
             elif char == '~':
@@ -707,9 +721,25 @@ class Parser:
         return left
     
     def parse_and(self) -> Node:
-        left = self.parse_bitwise_or()
+        left = self.parse_logical_and()
         while self.match(TT.AND):
             op = 'and'
+            right = self.parse_logical_and()
+            left = BinaryOp(left, op, right)
+        return left
+    
+    def parse_logical_and(self) -> Node:
+        left = self.parse_logical_or()
+        while self.match(TT.LOGICAL_AND):
+            op = '&&'
+            right = self.parse_logical_or()
+            left = BinaryOp(left, op, right)
+        return left
+    
+    def parse_logical_or(self) -> Node:
+        left = self.parse_bitwise_or()
+        while self.match(TT.LOGICAL_OR):
+            op = '||'
             right = self.parse_bitwise_or()
             left = BinaryOp(left, op, right)
         return left
@@ -1415,6 +1445,10 @@ class Interpreter:
                 return self.is_truthy(left) and self.is_truthy(right)
             elif node.op == 'or':
                 return left if self.is_truthy(left) else right
+            elif node.op == '||':
+                return self.is_truthy(left) or self.is_truthy(right)
+            elif node.op == '&&':
+                return self.is_truthy(left) and self.is_truthy(right)
             # Bitwise operators
             elif node.op == '&':
                 return int(left) & int(right)
@@ -1427,7 +1461,7 @@ class Interpreter:
             operand = self.execute(node.operand)
             if node.op == '-':
                 return -operand
-            elif node.op == 'not':
+            elif node.op == 'not' or node.op == '!':
                 return not self.is_truthy(operand)
             elif node.op == '~':
                 return ~int(operand)
