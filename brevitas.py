@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-Elang - Un linguaggio di programmazione moderno, semplice ma potente.
+Brevitas - Un linguaggio di programmazione moderno, semplice ma potente.
 
 Uso:
-    python elang.py script.ver          # Esegue un file
-    python elang.py                      # Avvia REPL interattivo
-    python elang.py --examples           # Esegue gli esempi
+    python brevitas.py script.brev          # Esegue un file
+    python brevitas.py                      # Avvia REPL interattivo
+    python brevitas.py --examples           # Esegue gli esempi
 """
 
 import sys
@@ -970,13 +970,13 @@ class VeurekException(Exception):
     """Eccezione lanciata da throw"""
     pass
 
-class VerClass:
-    def __init__(self, name: str, methods: Dict[str, 'VerFunction']):
+class BrevClass:
+    def __init__(self, name: str, methods: Dict[str, 'BrevFunction']):
         self.name = name
         self.methods = methods
     
     def instantiate(self, interpreter, args: List[Any]):
-        instance = VerInstance(self)
+        instance = BrevInstance(self)
         # Se esiste un costruttore __init__, chiamalo
         if '__init__' in self.methods:
             init_method = self.methods['__init__']
@@ -985,15 +985,14 @@ class VerClass:
             interpreter.call_function(bound_init, args)
         return instance
     
-    def bind_method(self, method: 'VerFunction', instance: 'VerInstance') -> 'VerFunction':
+    def bind_method(self, method: 'BrevFunction', instance: 'BrevInstance') -> 'BrevFunction':
         # Crea un nuovo scope con self
         new_closure = method.closure.copy()
         new_closure['self'] = instance
-        return VerFunction(method.params, method.body, new_closure)
-
-class VerInstance:
-    def __init__(self, ver_class: VerClass):
-        self.ver_class = ver_class
+        return BrevFunction(method.params, method.body, new_closure)
+class BrevInstance:
+    def __init__(self, brev_class: BrevClass):
+        self.brev_class = brev_class
         self.fields = {}
     
     def get(self, name: str):
@@ -1001,17 +1000,17 @@ class VerInstance:
         if name in self.fields:
             return self.fields[name]
         # Poi cerca nei metodi della classe
-        if name in self.ver_class.methods:
-            return self.ver_class.bind_method(self.ver_class.methods[name], self)
-        raise AttributeError(f"'{self.ver_class.name}' non ha attributo '{name}'")
+        if name in self.brev_class.methods:
+            return self.brev_class.bind_method(self.brev_class.methods[name], self)
+        raise AttributeError(f"'{self.brev_class.name}' non ha attributo '{name}'")
     
     def set(self, name: str, value: Any):
         self.fields[name] = value
     
     def __repr__(self):
-        return f"<{self.ver_class.name} instance>"
+        return f"<{self.brev_class.name} instance>"
 
-class VerFunction:
+class BrevFunction:
     def __init__(self, params: List[str], body: List[Node], closure: Dict):
         self.params = params
         self.body = body
@@ -1087,10 +1086,10 @@ class Interpreter:
         return None
     
     def load_library(self, filepath: str):
-        """Carica una libreria da un file .ver"""
-        # Gestisci estensioni con .ver o senza
-        if not filepath.endswith('.ver'):
-            filepath_with_ext = filepath + '.ver'
+        """Carica una libreria da un file .brev"""
+        # Gestisci estensioni con .brev o senza
+        if not filepath.endswith('.brev'):
+            filepath_with_ext = filepath + '.brev'
         else:
             filepath_with_ext = filepath
         
@@ -1142,45 +1141,45 @@ class Interpreter:
             self.load_library(node.path)
         
         elif isinstance(node, ClassDef):
-            # Converti i metodi in VerFunction
+            # Converti i metodi in BrevFunction
             methods = {}
             for method_name, method_def in node.methods.items():
-                methods[method_name] = VerFunction(
+                methods[method_name] = BrevFunction(
                     method_def.params, 
                     method_def.body, 
                     self.locals_stack[-1]
                 )
             # Crea la classe
-            ver_class = VerClass(node.name, methods)
-            self.locals_stack[-1][node.name] = ver_class
+            brev_class = BrevClass(node.name, methods)
+            self.locals_stack[-1][node.name] = brev_class
         
         elif isinstance(node, NewInstance):
             # Ottieni la classe
             if node.class_name not in self.locals_stack[-1] and node.class_name not in self.globals:
                 raise NameError(f"!! Classe '{node.class_name}' non definita")
             
-            ver_class = None
+            brev_class = None
             for scope in reversed(self.locals_stack):
                 if node.class_name in scope:
-                    ver_class = scope[node.class_name]
+                    brev_class = scope[node.class_name]
                     break
-            if not ver_class:
-                ver_class = self.globals.get(node.class_name)
+            if not brev_class:
+                brev_class = self.globals.get(node.class_name)
             
-            if not isinstance(ver_class, VerClass):
+            if not isinstance(brev_class, BrevClass):
                 raise TypeError(f"'{node.class_name}' non è una classe")
             
             # Valuta gli argomenti
             args = [self.execute(arg) for arg in node.args]
             # Crea l'istanza
-            return ver_class.instantiate(self, args)
+            return brev_class.instantiate(self, args)
         
         elif isinstance(node, AttrAssign):
             # self.x = value
             obj = self.execute(node.obj)
             value = self.execute(node.value)
             
-            if isinstance(obj, VerInstance):
+            if isinstance(obj, BrevInstance):
                 obj.set(node.attr, value)
                 return value
             else:
@@ -1254,7 +1253,7 @@ class Interpreter:
                 # Attributo: obj.field++ o obj.field--
                 obj = self.execute(node.target.obj)
                 
-                if isinstance(obj, VerInstance):
+                if isinstance(obj, BrevInstance):
                     current_value = obj.get(node.target.attr)
                 else:
                     current_value = getattr(obj, node.target.attr)
@@ -1266,7 +1265,7 @@ class Interpreter:
                     new_value = current_value - 1
                 
                 # Aggiorna l'attributo
-                if isinstance(obj, VerInstance):
+                if isinstance(obj, BrevInstance):
                     obj.set(node.target.attr, new_value)
                 else:
                     setattr(obj, node.target.attr, new_value)
@@ -1315,7 +1314,7 @@ class Interpreter:
         
         elif isinstance(node, FnDef):
             # Passa il riferimento allo scope corrente, non una copia
-            func = VerFunction(node.params, node.body, self.locals_stack[-1])
+            func = BrevFunction(node.params, node.body, self.locals_stack[-1])
             if node.name:
                 self.locals_stack[-1][node.name] = func
             return func
@@ -1376,7 +1375,7 @@ class Interpreter:
                 for stmt in node.try_body:
                     self.execute(stmt)
             except VeurekException as e:
-                # Cattura errore Elang
+                # Cattura errore Brevitas
                 if node.catch_body:
                     # Crea una variabile per l'errore
                     self.locals_stack.append({})
@@ -1478,8 +1477,8 @@ class Interpreter:
         
         elif isinstance(node, Attr):
             obj = self.execute(node.obj)
-            # Se è un'istanza di VerInstance, usa il metodo get
-            if isinstance(obj, VerInstance):
+            # Se è un'istanza di BrevInstance, usa il metodo get
+            if isinstance(obj, BrevInstance):
                 return obj.get(node.attr)
             return getattr(obj, node.attr)
         
@@ -1507,10 +1506,10 @@ class Interpreter:
         return None
     
     def call_function(self, func: Any, args: List[Any]) -> Any:
-        if callable(func) and not isinstance(func, VerFunction):
+        if callable(func) and not isinstance(func, BrevFunction):
             return func(*args)
         
-        if isinstance(func, VerFunction):
+        if isinstance(func, BrevFunction):
             # Salva lo scope corrente
             prev_stack = self.locals_stack.copy()
             
@@ -1546,8 +1545,8 @@ class Interpreter:
 
 # ============ MAIN ============
 
-def run_ver(source: str, filename: str = "<input>"):
-    """Esegue codice Verureka"""
+def run_brev(source: str, filename: str = "<input>"):
+    """Esegue codice Brevitas"""
     try:
         lexer = Lexer(source)
         tokens = lexer.tokenize()
@@ -1566,11 +1565,11 @@ def run_ver(source: str, filename: str = "<input>"):
         sys.exit(1)
 
 def run_file(filepath: str):
-    """Esegue un file .ver"""
+    """Esegue un file .el"""
     try:
         with open(filepath, 'r', encoding='utf-8') as f:
             source = f.read()
-        run_ver(source, filepath)
+        run_brev(source, filepath)
     except FileNotFoundError:
         print(f"!! File non trovato: {filepath}", file=sys.stderr)
         sys.exit(1)
@@ -1581,7 +1580,7 @@ def run_file(filepath: str):
 def repl():
     """REPL interattivo"""
     print("=" * 60)
-    print("Elang REPL - Linguaggio di Programmazione Interattivo")
+    print("Brevitas REPL - Linguaggio di Programmazione Interattivo")
     print("=" * 60)
     print("Digita 'exit' o 'quit' per uscire")
     print("Digita 'help' per vedere i comandi disponibili")
@@ -1592,7 +1591,7 @@ def repl():
     
     while True:
         try:
-            line = input("ver> ")
+            line = input(">>> ")
             
             if not line.strip():
                 continue
@@ -1660,12 +1659,12 @@ Esempi:
 def run_examples():
     """Esegue gli esempi dimostrativi"""
     print("=" * 60)
-    print("Elang - Linguaggio di Programmazione")
+    print("Brevitas - Linguaggio di Programmazione")
     print("=" * 60)
     
     # Esempio 1: Base
     print("\nEsempio 1: Variabili e Funzioni")
-    run_ver("""
+    run_brev("""
 let nome = "Mario"
 let età = 25
 
@@ -1678,7 +1677,7 @@ saluta(nome)
     
     # Esempio 2: Liste e iterazione
     print("\nEsempio 2: Liste e Iterazione")
-    run_ver("""
+    run_brev("""
 let numeri = [1, 2, 3, 4, 5]
 
 print("Numeri originali:", numeri)
@@ -1690,7 +1689,7 @@ end
     
     # Esempio 3: Lambda e funzioni di ordine superiore
     print("\n Esempio 3: Lambda e Higher-Order Functions")
-    run_ver("""
+    run_brev("""
 let numeri = [1, 2, 3, 4, 5]
 
 let doppio = fn(x) => x * 2
@@ -1705,7 +1704,7 @@ print("Numeri pari:", pari)
     
     # Esempio 4: Mappe (dizionari)
     print("\nEsempio 4: Mappe/Dizionari")
-    run_ver("""
+    run_brev("""
 let utente = {
     nome: "Alice",
     età: 30,
@@ -1718,7 +1717,7 @@ print("Età:", utente["età"])
     
     # Esempio 5: Fibonacci con ricorsione
     print("\nEsempio 5: Fibonacci Ricorsivo")
-    run_ver("""
+    run_brev("""
 fn fibonacci(n)
     if n < 2
         return n
@@ -1731,7 +1730,7 @@ print("Fibonacci(10) =", fibonacci(10))
     
     # Esempio 6: Closures
     print("\nEsempio 6: Closures")
-    run_ver("""
+    run_brev("""
 fn crea_contatore()
     let count = 0
     return fn() => count = count + 1
@@ -1745,7 +1744,7 @@ print(contatore())
     
     # Esempio 7: Factorial con while
     print("\nEsempio 7: Fattoriale")
-    run_ver("""
+    run_brev("""
 fn fattoriale(n)
     let risultato = 1
     let i = 1
@@ -1762,7 +1761,7 @@ print("10! =", fattoriale(10))
     
     # Esempio 8: Reduce
     print("\nEsempio 8: Reduce")
-    run_ver("""
+    run_brev("""
 let numeri = [1, 2, 3, 4, 5]
 let somma = reduce(numeri, fn(acc, n) => acc + n, 0)
 print("Somma:", somma)
@@ -1777,7 +1776,7 @@ print("Prodotto:", prodotto)
     
     # Esempio 9: Operatori compatti
     print("\nEsempio 9: Operatori Compatti (+=, -=, ++, --)")
-    run_ver("""
+    run_brev("""
 let x = 10
 print("x iniziale:", x)
 
@@ -1805,7 +1804,7 @@ print("--y:", --y)
     
     # Esempio 10: Classi e OOP
     print("\nEsempio 10: Classi e OOP")
-    run_ver("""
+    run_brev("""
 class Persona
     fn __init__(nome, età)
         self.nome = nome
@@ -1833,7 +1832,7 @@ luigi.saluta()
     
     # Esempio 11: Classe Contatore con OOP
     print("\nEsempio 11: Classe Contatore")
-    run_ver("""
+    run_brev("""
 class Contatore
     fn __init__(valore_iniziale)
         self.valore = valore_iniziale
@@ -1865,7 +1864,7 @@ print("Valore finale:", c.get())
     
     # Esempio 12: Classe Punto 2D
     print("\nEsempio 12: Classe Punto 2D")
-    run_ver("""
+    run_brev("""
 class Punto
     fn __init__(x, y)
         self.x = x
@@ -1899,7 +1898,7 @@ print("Nuova distanza:", p.distanza_origine())
 # ============ ENTRY POINT ============
 
 def main():
-    """Entry point del compilatore Verureka"""
+    """Entry point del compilatore Brevitas"""
     if len(sys.argv) == 1:
         # Nessun argomento: avvia REPL
         repl()
@@ -1909,14 +1908,14 @@ def main():
     elif sys.argv[1] in ["-h", "--help"]:
         # Help
         print("""
-Elang - Linguaggio di Programmazione
+Brevitas - Linguaggio di Programmazione
 
 Uso:
-    python elang.py                    # Avvia REPL interattivo
-    python elang.py script.ver        # Esegue un file
-    python elang.py --examples         # Esegue gli esempi
-    python elang.py --help             # Mostra questo messaggio
-Esempi di sintassi Elang:
+    python brevitas.py                    # Avvia REPL interattivo
+    python brevitas.py script.brev      # Esegue un file
+    python brevitas.py --examples       # Esegue gli esempi
+    python brevitas.py --help             # Mostra questo messaggio
+Esempi di sintassi Brevitas:
     # Variabili
     let x = 10
     
@@ -1943,7 +1942,7 @@ Esempi di sintassi Elang:
     let p = new Persona("Mario", 25)
     p.saluta()
 
-Per maggiori informazioni, visita: https://github.com/vincenzofranchino/e-lang
+Per maggiori informazioni, visita: https://github.com/vincenzofranchino/brevitas-lang
         """)
     else:
         # Esegui file

@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
-Elang - Un linguaggio di programmazione moderno, semplice ma potente.
+Brevitas - Un linguaggio di programmazione moderno, semplice ma potente.
 
 Uso:
-    python elang.py script.ver          # Esegue un file
-    python elang.py -c script.ver       # Compila a eseguibile
-    python elang.py -c script.ver -o app # Specifica nome output
-    python elang.py                      # Avvia REPL interattivo
-    python elang.py --examples           # Esegue gli esempi
+    python brevitas.py script.brev          # Esegue un file
+    python brevitas.py -c script.brev       # Compila a eseguibile
+    python brevitas.py -c script.brev -o app # Specifica nome output
+    python brevitas.py                      # Avvia REPL interattivo
+    python brevitas.py --examples           # Esegue gli esempi
 """
 
 import sys
@@ -1327,7 +1327,7 @@ def run_file(filepath: str):
 def repl():
     """REPL interattivo"""
     print("=" * 60)
-    print("Elang REPL - Linguaggio di Programmazione Interattivo")
+    print("Brevitas REPL - Linguaggio di Programmazione Interattivo")
     print("=" * 60)
     print("Digita 'exit' o 'quit' per uscire")
     print("Digita 'help' per vedere i comandi disponibili")
@@ -1406,7 +1406,7 @@ Esempi:
 def run_examples():
     """Esegue gli esempi dimostrativi"""
     print("=" * 60)
-    print("Elang - Linguaggio di Programmazione")
+    print("Brevitas - Linguaggio di Programmazione")
     print("=" * 60)
     
     # Esempio 1: Base
@@ -1663,17 +1663,17 @@ def compile_to_executable(input_file: str, output_name: str = None):
         output_name = input_path.stem
     
     output_path = Path(output_name)
-    script_path = Path(f"_veureka_script.py")  # Nome fisso con estensione .py per Nuitka
+    script_path = Path(f"_brevitas_script.py")  # Nome fisso con estensione .py per Nuitka
     
     print(f"Compilo: {input_file} → {output_name}")
     
     try:
-        # Leggi il codice Veureka
+        # Leggi il codice Brevitas
         with open(input_path, 'r', encoding='utf-8') as f:
-            veureka_code = f.read()
+            brevitas_code = f.read()
         
         # Codifica in base64 
-        veureka_code_b64 = base64.b64encode(veureka_code.encode()).decode()
+        brevitas_code_b64 = base64.b64encode(brevitas_code.encode()).decode()
         
         # Leggi il compilatore (questo file)
         current_file = Path(__file__).resolve()
@@ -1686,7 +1686,7 @@ def compile_to_executable(input_file: str, output_name: str = None):
         
         # Genera lo script wrapper
         wrapper = f'''#!/usr/bin/env python3
-# Eseguibile Veureka compilato automaticamente
+# Eseguibile Brevitas compilato automaticamente
 # File originale: {input_file}
 
 import sys
@@ -1694,12 +1694,12 @@ import base64
 
 {runtime_code}
 
-# Codice del programma Veureka
+# Codice del programma Brevitas
 if __name__ == "__main__":
-    VEUREKA_SOURCE = base64.b64decode("{veureka_code_b64}").decode()
+    BREVITAS_SOURCE = base64.b64decode("{brevitas_code_b64}").decode()
     
     try:
-        lexer = Lexer(VEUREKA_SOURCE)
+        lexer = Lexer(BREVITAS_SOURCE)
         tokens = lexer.tokenize()
         parser = Parser(tokens)
         program = parser.parse()
@@ -1727,11 +1727,11 @@ if __name__ == "__main__":
             # Nuitka DEVE ricevere il nome completo con estensione .py
             result = subprocess.run([
                 nuitka_path,
-                '_veureka_script.py'  # Il vero nome dello script con .py
+                '_brevitas_script.py'  # Il vero nome dello script con .py
             ], timeout=600, cwd=str(Path.cwd()))
             
             # Nuitka crea nome_file.bin dal nome dello script (.py)
-            script_stem = Path('_veureka_script.py').stem  # _veureka_script
+            script_stem = Path('_brevitas_script.py').stem  # _brevitas_script
             expected_bin = Path.cwd() / f"{script_stem}.bin"
             
             print(f"Cerco binario: {expected_bin}")
@@ -1774,14 +1774,14 @@ if __name__ == "__main__":
 # ============ ENTRY POINT ============
 
 def main():
-    """Entry point del compilatore Veureka"""
+    """Entry point del compilatore Brevitas"""
     if len(sys.argv) == 1:
         # Nessun argomento: avvia REPL
         repl()
     elif sys.argv[1] == "-c":
         # Modalità compilazione
         if len(sys.argv) < 3:
-            print("Uso: python veureka.py -c <file.ver> [-o <output>]")
+            print("Uso: python brevitas.py -c <file.brev> [-o <output>]")
             sys.exit(1)
         
         input_file = sys.argv[2]
@@ -1801,17 +1801,17 @@ def main():
     elif sys.argv[1] in ["-h", "--help"]:
         # Help
         print("""
-Elang - Linguaggio di Programmazione
+Brevitas - Linguaggio di Programmazione
 
 Uso:
-    python elang.py                      # Avvia REPL interattivo
-    python elang.py script.ver           # Esegue un file
-    python elang.py -c script.ver        # Compila a eseguibile
-    python elang.py -c script.ver -o app # Compila con nome custom
-    python elang.py --examples            # Esegue gli esempi
-    python elang.py --help                # Mostra questo messaggio
+    python brevitas.py                      # Avvia REPL interattivo
+    python brevitas.py script.brev           # Esegue un file
+    python brevitas.py -c script.brev        # Compila a eseguibile
+    python brevitas.py -c script.brev -o app # Compila con nome custom
+    python brevitas.py --examples            # Esegue gli esempi
+    python brevitas.py --help                # Mostra questo messaggio
 
-Esempi di sintassi Elang:
+Esempi di sintassi Brevitas:
 
     # Variabili
     let x = 10
@@ -1839,7 +1839,7 @@ Esempi di sintassi Elang:
     let p = new Persona("Mario", 25)
     p.saluta()
 
-Per maggiori informazioni, visita: https://github.com/vincenzofranchino/e-lang
+Per maggiori informazioni, visita: https://github.com/vincenzofranchino/brevitas-lang
         """)
     else:
         # Esegui file

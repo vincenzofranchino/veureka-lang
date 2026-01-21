@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Veureka - Un linguaggio di programmazione moderno, semplice ma potente
+Brevitas - Un linguaggio di programmazione moderno, semplice ma potente
 Caratteristiche: tipizzazione dinamica, funzioni first-class, closures, pattern matching
 """
 

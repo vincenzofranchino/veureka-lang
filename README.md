@@ -1,4 +1,4 @@
-# 🚀 E-lang
+# 🚀 Brevitas-language
 
 **Un linguaggio di programmazione moderno, semplice ma potente**
 
@@ -19,7 +19,7 @@ E è un linguaggio interpretato con sintassi pulita che supporta programmazione 
 - ⚡ **Operatori compatti** (+=, -=, ++, --)
 - 📦 **Collezioni native** (liste, mappe/dizionari)
 - 💬 **Input/Output interattivo** (input da terminale, print con più argomenti)
-- 📚 **Sistema di librerie** (include per importare file .ver)
+- 📚 **Sistema di librerie** (include per importare file .brev)
 - 🐍 **Implementato in Python puro** (nessuna dipendenza esterna)
 
 ## 📥 Installazione
@@ -27,23 +27,23 @@ E è un linguaggio interpretato con sintassi pulita che supporta programmazione 
 ### Opzione 1: Usa Python direttamente
 ```bash
 # Clone del repository
-git clone https://github.com/vincenzofranchino/e-lang.git
-cd e-lang
+git clone https://github.com/vincenzofranchino/brevitas-lang.git
+cd brevitas-lang
 
 # Esegui direttamente
-python elang.py script.ver
+python brevitas.py script.brev
 ```
 
 ### Opzione 2: Installa come comando di sistema (Linux)
 ```bash
-git clone https://github.com/vincenzofranchino/e-lang.git
-cd e-lang
+git clone https://github.com/vincenzofranchino/brevitas-lang.git
+cd brevitas-lang
 
 sudo make build
 sudo make install
 
 # Adesso puoi usare da qualsiasi directory:
-elang script.ver
+brevitas script.brev
 
 # Per disinstallare:
 make clean
@@ -52,42 +52,42 @@ make clean
 ## 🚀 Quick Start
 
 ### Hello World
-```e-lang
+```brevitas
 print("Ciao, mondo!")
 ```
 
 ### Eseguire un file
 ```bash
-python elang.py hello.ver
+python brevitas.py hello.brev
 # oppure (se installato)
-elang hello.ver
+brevitas hello.brev
 ```
 
 ### REPL Interattivo
 ```bash
-python elang.py
+python brevitas.py
 # oppure (se installato)
-elang
+brevitas
 ```
 
 ### Esempi dimostrativi
 ```bash
-python elang.py --examples
+python brevitas.py --examples
 # oppure
-elang --examples
+brevitas --examples
 ```
 
 ## 📖 Sintassi di Base
 
 ### Variabili
-```elang
+```brevitas
 let nome = "Mario"
 let età = 25
 let pi = 3.14159
 ```
 
 ### Funzioni
-```elang
+```brevitas
 fn saluta(nome)
     print("Ciao, " + nome + "!")
 end
@@ -96,7 +96,7 @@ saluta("Alice")
 ```
 
 ### Lambda Functions
-```elang
+```brevitas
 let doppio = fn(x) => x * 2
 let somma = fn(a, b) => a + b
 
@@ -105,7 +105,7 @@ print(somma(3, 7))   # 10
 ```
 
 ### Strutture di Controllo
-```elang
+```brevitas
 # If-Elif-Else
 if x > 10
     print("Grande")
@@ -129,7 +129,7 @@ end
 ```
 
 ### Classi e OOP
-```elang
+```brevitas
 class Persona
     fn __init__(nome, età)
         self.nome = nome
@@ -151,7 +151,7 @@ mario.compleanno()
 ```
 
 ### Operatori Compatti
-```elang
+```brevitas
 let x = 10
 
 x += 5    # x = 15
@@ -169,7 +169,7 @@ x--       # postfisso
 ### Collezioni
 
 #### Liste
-```elang
+```brevitas
 let numeri = [1, 2, 3, 4, 5]
 
 for n in numeri
@@ -181,7 +181,7 @@ print(numeri[0])      # 1
 ```
 
 #### Mappe/Dizionari
-```elang
+```brevitas
 let utente = {
     nome: "Alice",
     età: 30,
@@ -192,7 +192,7 @@ print(utente["nome"])    # "Alice"
 ```
 
 ### Funzioni di Ordine Superiore
-```elang
+```brevitas
 let numeri = [1, 2, 3, 4, 5]
 
 # Map
@@ -209,7 +209,7 @@ print(somma)  # 15
 ```
 
 ### Closures
-```elang
+```brevitas
 fn crea_contatore()
     let count = 0
     return fn() => count = count + 1
@@ -222,7 +222,7 @@ print(contatore())  # 3
 ```
 
 ### Input da Terminale
-```elang
+```brevitas
 print("Inserisci il tuo nome:")
 let nome = input()
 print("Ciao, " + nome + "!")
@@ -234,8 +234,8 @@ print("Il doppio è:", numero * 2)
 ```
 
 ### Librerie e Include
-```elang
-# File: lib/math_utils.ver
+```brevitas
+# File: lib/math.brev
 fn quadrato(x)
     return x * x
 end
@@ -245,8 +245,8 @@ fn ipotenusa(a, b)
 end
 ```
 
-```elang
-# File: main.ver
+```brevitas
+# File: main.brev
 include "lib/math_utils"
 
 print("Quadrato di 5:", quadrato(5))
@@ -256,7 +256,7 @@ print("Ipotenusa(3,4):", ipotenusa(3, 4))
 ## 🎯 Esempi Completi
 
 ### FizzBuzz
-```elang
+```brevitas
 for i in range(1, 101)
     if i % 15 == 0
         print("FizzBuzz")
@@ -271,7 +271,7 @@ end
 ```
 
 ### Fibonacci Ricorsivo
-```elang
+```brevitas
 fn fibonacci(n)
     if n < 2
         return n
@@ -283,7 +283,7 @@ print(fibonacci(10))  # 55
 ```
 
 ### Classe Contatore
-```elang
+```brevitas
 class Contatore
     fn __init__(valore)
         self.valore = valore
@@ -306,7 +306,7 @@ c.reset()
 ```
 
 ### Calcolatrice con Method Chaining
-```elang
+```brevitas
 class Calc
     fn __init__()
         self.risultato = 0
@@ -354,7 +354,7 @@ print(result)  # 53
 | `abs(number)` | Valore assoluto |
 
 ### Statement Speciali
-```elang
+```brevitas
 # Include - Importa una libreria
 include "lib/math_utils"
 include("string_utils")    # Entrambe le sintassi sono valide
@@ -379,26 +379,26 @@ end
 ## 🛠️ Uso del REPL
 
 ```bash
-$ python elang.py
+$ python brevitas.py
 ============================================================
-Elang REPL - Linguaggio di Programmazione Interattivo
+Brevitas REPL - Linguaggio di Programmazione Interattivo
 ============================================================
 Digita 'exit' o 'quit' per uscire
 Digita 'help' per vedere i comandi disponibili
 
-ver> let x = 10
-ver> x += 5
+>>> let x = 10
+>>> x += 5
 15
-ver> print(x)
+>>> print(x)
 15
-ver> fn double(n) => n * 2
-ver> double(x)
+>>> fn double(n) => n * 2
+>>> double(x)
 30
-ver> vars
+>>> vars
 Variabili globali:
   x = 15
   double = <function>
-ver> exit
+>>> exit
 Arrivederci!
 ```
 
@@ -409,7 +409,7 @@ Arrivederci!
 - `vars` - Mostra tutte le variabili definite
 
 ### TodoList con Classe
-```elang
+```brevitas
 class TodoList
     fn __init__()
         self.tasks = []
@@ -433,13 +433,13 @@ class TodoList
 end
 
 let todo = new TodoList()
-todo.add("Studiare Elang")
+todo.add("Studiare Brevitas")
 todo.add("Scrivere codice")
 todo.show()
 ```
 
 ### Punto 2D con Metodi
-```elang
+```brevitas
 class Punto
     fn __init__(x, y)
         self.x = x

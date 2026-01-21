@@ -1,11 +1,11 @@
 .PHONY: all build clean install installpython uninstall test
-APP_NAME = elang
-SRC_C = elang.c
-SRC_PY = elang.py
+APP_NAME = brevitas
+SRC_C = brevitas.c
+SRC_PY = brevitas.py
 
 all:
 	@echo "=============================================================="
-	@echo "Elang - Linguaggio di Programmazione"
+	@echo "Brevitas - Linguaggio di Programmazione"
 	@echo "========================================="
 	@echo "Comandi disponibili:"
 	@echo "  make build        - Compila la versione C"
@@ -17,8 +17,8 @@ all:
 	@echo "  make clean        - Rimuove i file di build"
 	@echo ""
 	@echo "Per eseguire:"
-	@echo "  ./elang script.ver    # Versione C compilata"
-	@echo "  python elang.py       # Versione Python"
+	@echo "  ./brevitas script.brev    # Versione C compilata"
+	@echo "  python brevitas.py       # Versione Python"
 	@echo ""
 	@echo "Nota: PyInstaller è richiesto per 'make python' e 'make installpython'"
 
@@ -50,8 +50,8 @@ installpython: python
 	@echo "✓ Installato Python in /usr/local/bin/$(APP_NAME)"
 
 test: build
-	@echo "Testing Elang C implementation..."
-	@echo 'print("Hello from Elang!")' | ./$(APP_NAME)
+	@echo "Testing Brevitas C implementation..."
+	@echo 'print("Hello from Brevitas!")' | ./$(APP_NAME)
 	@echo ""
 	@echo 'let x = 10\nprint("x =", x)' | ./$(APP_NAME)
 

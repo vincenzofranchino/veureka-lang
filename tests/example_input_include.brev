@@ -1,4 +1,4 @@
-# Esempio di utilizzo di INPUT e INCLUDE in Elang
+# Esempio di utilizzo di INPUT e INCLUDE in Brevitas
 
 # Importa librerie
 include "lib/math"

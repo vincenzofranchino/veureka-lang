@@ -1,7 +1,7 @@
-# TEST COMPLETO DI TUTTE LE FUNZIONALITÀ DI Elang
+# TEST COMPLETO DI TUTTE LE FUNZIONALITÀ DI Brevitas
 
 print("╔════════════════════════════════════════════════╗")
-print("║  TEST COMPLETO - Elang LANGUAGE FEATURES    ║")
+print("║  TEST COMPLETO - Brevitas LANGUAGE FEATURES    ║")
 print("╚════════════════════════════════════════════════╝")
 print()
 
@@ -9,7 +9,7 @@ print()
 print("1️⃣  VARIABILI E TIPI")
 let x = 10
 let y = 3.14
-let stringa = "Elang"
+let stringa = "Brevitas"
 let booleano = true
 let lista = [1, 2, 3, 4, 5]
 print("Intero:", x, "| Float:", y, "| String:", stringa)
